@@ -1,0 +1,14 @@
+---
+export interface Props {
+  imageUrl: string;
+}
+
+const { imageUrl } = Astro.props;
+---
+
+<div class="section section-inner m-image-large">
+  <div class="image">
+    <div class="img js-parallax" style={`background-image: url(${imageUrl});`}>
+    </div>
+  </div>
+</div>

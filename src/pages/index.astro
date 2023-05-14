@@ -1,81 +1,438 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+import slide1 from "../assets/started-n26-1920x1080.jpg";
+import slide2 from "../assets/started-n15-1920x1080.jpg";
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
+  <!-- Hero Main Slider -->
+  <div class="section hero-main-slider">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="slide" style={`background-image: url(${slide1.src});`}>
+          </div>
+
+          <div class="slide-titles">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="titles dark">
+                  <div class="label scrolla-element-anim-1">branding</div>
+                  <div class="title">
+                    <span
+                      class="title-inner splitting-text-anim-2"
+                      data-splitting>Melanin <br />Goddess</span
+                    >
+                  </div>
+                  <div class="subtitle scrolla-element-anim-1">
+                    Creativity is to discover a question that has never been
+                    asked. If one brings up an idiosyncratic question, the
+                    answer he gives will necessarily be unique as well.
+                  </div>
+                </div>
+
+                <div class="more-bts">
+                  <a
+                    href="/portfolio/melanin-goddess/"
+                    data-splitting
+                    class="btn more-btn scrolla-element-anim-1">seeDetails</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="slide" style={`background-image: url(${slide2.src});`}>
+          </div>
+
+          <div class="slide-titles">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="titles dark">
+                  <div class="label scrolla-element-anim-1">ui/ux</div>
+                  <div class="title">
+                    <span
+                      class="title-inner splitting-text-anim-2"
+                      data-splitting>Blue denim</span
+                    >
+                  </div>
+                  <div class="subtitle scrolla-element-anim-1">
+                    Creativity is to discover a question that has never been
+                    asked. If one brings up an idiosyncratic question, the
+                    answer he gives will necessarily be unique as well.
+                  </div>
+                </div>
+
+                <div class="more-bts">
+                  <a
+                    href="/portfolio/blue-denim/"
+                    data-splitting
+                    class="btn more-btn scrolla-element-anim-1">seeDetails</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="swiper-pagination scrolla-element-anim-1 scroll-animate"
+        data-animate="active"
+      >
+      </div>
+
+      <div class="swiper-buttons">
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </div>
 </Layout>
 
+<script>
+  // import Swiper JS
+  import Swiper, { Pagination, Autoplay } from "swiper";
+  // import Swiper styles
+  import "swiper/css";
+  import "swiper/css/pagination";
+  import "swiper/css/autoplay";
+
+  /* Hero Main Slider */
+  const st_image_slider = new Swiper(".hero-main-slider .swiper-container", {
+    modules: [Pagination, Autoplay],
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+    },
+    speed: 1000,
+    mousewheel: true,
+    watchSlidesProgress: true,
+    pagination: {
+      el: ".hero-main-slider .swiper-pagination",
+    },
+    navigation: {
+      nextEl: ".hero-main-slider .swiper-button-next",
+      prevEl: ".hero-main-slider .swiper-button-prev",
+    },
+    on: {
+      progress: function () {
+        var swiper = this;
+        for (var i = 0; i < swiper.slides.length; i++) {
+          var slideProgress = swiper.slides[i].progress,
+            innerOffset = swiper.width * 0.5,
+            innerTranslate = slideProgress * innerOffset;
+          swiper.slides[i].querySelector(".slide").style.transform =
+            "translateX(" + innerTranslate + "px)";
+        }
+      },
+      touchStart: function () {
+        var swiper = this;
+        for (var i = 0; i < swiper.slides.length; i++) {
+          swiper.slides[i].style.transition = "";
+        }
+      },
+      setTransition: function (swiper, speed) {
+        for (var i = 0; i < swiper.slides.length; i++) {
+          swiper.slides[i].style.transition = speed + "ms";
+          swiper.slides[i].querySelector<HTMLElement>(
+            ".slide"
+          ).style.transition = speed + "ms";
+        }
+      },
+      slideChangeTransitionStart: function (swiper) {
+        for (var i = 0; i < swiper.slides.length; i++) {
+          document
+            .querySelector(".hero-main-slider .swiper-slide")
+            .classList.remove("animate-active");
+          document
+            .querySelector(".hero-main-slider .swiper-slide-active")
+            .classList.add("animate-active");
+
+          if (
+            document.querySelectorAll(
+              ".hero-main-slider .swiper-slide-active .dark"
+            ).length
+          ) {
+            if (
+              !document.querySelector("body").classList.contains("dark-first")
+            ) {
+              document.querySelector("body").classList.add("dark-first");
+            }
+          } else {
+            document.querySelector("body").classList.remove("dark-first");
+          }
+        }
+      },
+      init: function () {
+        var swiper = this;
+
+        setTimeout(function () {
+          document
+            .querySelector(".hero-main-slider .swiper-slide-active")
+            .classList.add("animate-active");
+        }, 500);
+
+        if (
+          document.querySelectorAll(
+            ".hero-main-slider .swiper-slide-active .dark"
+          ).length
+        ) {
+          if (
+            !document.querySelector("body").classList.contains("dark-first")
+          ) {
+            document.querySelector("body").classList.add("dark-first");
+          }
+        } else {
+          document.querySelector("body").classList.remove("dark-first");
+        }
+      },
+    },
+  });
+</script>
+
 <style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+  .hero-main-slider .slide-titles {
+    padding: 50px;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    text-align: left;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -o-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -ms-transform: translate(0, -30px);
+    transform: translate(0, -30px);
+    -webkit-transform: translate(0, -30px);
+    -moz-transform: translate(0, -30px);
+    -o-transform: translate(0, -30px);
+  }
+
+  .hero-main-slider .slide-titles .titles {
+    color: #fff;
+  }
+
+  .hero-main-slider .slide-titles .titles.aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .hero-main-slider .slide-titles .titles.dark {
+    color: #18181b;
+  }
+
+  .hero-main-slider .slide-titles .label {
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .hero-main-slider .slide-titles .subtitle {
+    display: block;
+    margin: 0 0 35px 0;
+    max-width: 480px;
+    opacity: 0.8;
+  }
+
+  .hero-main-slider .slide-titles .title {
+    position: relative;
+    display: block;
+    font-family: "Playfair Display";
+    font-size: 108px;
+    line-height: 1;
+    font-weight: 500;
+    margin: 0 0 70px 0;
+    color: inherit;
+  }
+
+  .hero-main-slider .slide-titles .title:after {
+    content: "";
+    position: absolute;
+    left: -160px;
+    bottom: -30px;
+    width: 0;
+    height: 1px;
+    background: #eb6165;
+    transition: all 0.6s cubic-bezier(0.3, 0, 0.3, 1) 0.4s;
+    -moz-transition: all 0.6s cubic-bezier(0.3, 0, 0.3, 1) 0.4s;
+    -webkit-transition: all 0.6s cubic-bezier(0.3, 0, 0.3, 1) 0.4s;
+    -o-transition: all 0.6s cubic-bezier(0.3, 0, 0.3, 1) 0.4s;
+  }
+
+  .hero-main-slider {
+    position: relative;
+    height: 100vh;
+  }
+
+  .admin-bar .hero-main-slider {
+    position: relative;
+    height: calc(100vh - 32px);
+  }
+
+  @media screen and (max-width: 782px) {
+    .admin-bar .hero-main-slider {
+      height: calc(100vh - 46px);
+    }
+  }
+
+  .hero-main-slider .swiper-slide {
+    overflow: hidden;
+  }
+
+  .hero-main-slider .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .hero-main-slider .slide:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -o-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+  }
+
+  .hero-main-slider .more-bts {
+    text-align: left;
+  }
+
+  .hero-main-slider .btn.more-btn {
+    display: inline-block;
+    border: none;
+    font-size: 16px;
+    height: auto;
+    line-height: 1;
+    padding: 10px;
+  }
+
+  .hero-main-slider .btn.more-btn:before {
+    transform: skew(0deg, 0deg);
+    -webkit-transform: skew(0deg, 0deg);
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 100%;
+  }
+
+  .hero-main-slider .btn.more-btn:hover:before {
+    left: -10%;
+    width: 120%;
+    height: 110%;
+    transform: skew(-10deg, 0deg);
+    -webkit-transform: skew(-10deg, 0deg);
+  }
+
+  .dark-first .hero-main-slider .btn.more-btn {
+    color: #18181b;
+  }
+
+  .hero-main-slider .swiper-slide.animate-active .slide-titles {
+    opacity: 1;
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+  }
+
+  .hero-main-slider .swiper-slide.animate-active .slide-titles .title:after {
+    left: -90px;
+    width: 160px;
+  }
+
+  .hero-main-slider .swiper-buttons {
+    position: absolute;
+    right: 50px;
+    left: 50px;
+    bottom: 50px;
+  }
+
+  .hero-main-slider .swiper-buttons .swiper-button-prev,
+  .hero-main-slider .swiper-buttons .swiper-button-next {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 12px;
+    height: 20px;
+    background: url(../images/arrow.svg) no-repeat;
+    background-size: contain;
+    border: none;
+    font-size: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -moz-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+    -o-transition: all 0.3s cubic-bezier(0.3, 0, 0.3, 1);
+  }
+
+  .hero-main-slider .swiper-buttons .swiper-button-prev:after,
+  .hero-main-slider .swiper-buttons .swiper-button-next:after {
+    display: none;
+  }
+
+  .hero-main-slider .swiper-buttons .swiper-button-prev.enabled,
+  .hero-main-slider .swiper-buttons .swiper-button-next.enabled {
+    pointer-events: auto;
+  }
+
+  .hero-main-slider .swiper-buttons .swiper-button-next {
+    left: 50px;
+    right: auto;
+  }
+
+  .hero-main-slider .swiper-buttons .swiper-button-prev {
+    -ms-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    left: 0;
+    right: auto;
+  }
+
+  .dark-first .hero-main-slider .swiper-buttons .swiper-button-prev,
+  .dark-first .hero-main-slider .swiper-buttons .swiper-button-next {
+    filter: invert(1);
+  }
+
+  body .hero-main-slider .swiper-pagination {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 50px;
+    width: 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dark-first .hero-main-slider .slide:after {
+    opacity: 0;
+  }
 </style>

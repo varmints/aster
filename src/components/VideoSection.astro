@@ -1,0 +1,52 @@
+---
+export interface Props {
+  imageUrl: string;
+}
+
+const { imageUrl } = Astro.props;
+---
+
+<div class="section section-inner m-video-large">
+  <div class="video">
+    <div class="img js-parallax" style={`background-image: url(${imageUrl});`}>
+    </div>
+    <iframe
+      class="js-video-iframe"
+      data-src="https://www.youtube.com/embed/Way9Dexny3w?showinfo=0&rel=0&autoplay=1"
+    ></iframe>
+    <div class="play"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).closest(".play, .img")) {
+      handler.call(event.target, event);
+    }
+  });
+
+  function handler(e) {
+    (e.target as HTMLElement).closest(".video").classList.add("active");
+
+    const iframe = (e.target as HTMLElement)
+      .closest(".video")
+      .querySelectorAll(`:scope .js-video-iframe`);
+
+    largeVideoPlay(iframe[0]);
+
+    return false;
+  }
+  //   $(".m-video-large .video").on("click", ".play, .img", function () {
+  //     $(this).closest(".video").addClass("active");
+  //     var iframe = $(this).closest(".video").find(".js-video-iframe");
+
+  //     largeVideoPlay(iframe);
+
+  //     return false;
+  //   });
+
+  function largeVideoPlay(iframe) {
+    const src = iframe.dataset.src;
+    iframe.setAttribute("src", src);
+  }
+</script>

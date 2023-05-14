@@ -1,0 +1,143 @@
+---
+import rev1 from "../assets/rev1.png";
+import rev2 from "../assets/rev2.png";
+import rev3 from "../assets/rev3.png";
+---
+
+<div class="section section-inner m-testimonials">
+  <div class="container mx-auto">
+    <div class="row">
+      <div class="align-left w-full">
+        <div class="m-titles">
+          <h2
+            class="m-title scrolla-element-anim-1 scroll-animate"
+            data-animate="active"
+          >
+            Our testimonials
+          </h2>
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="swiper-container js-testimonials">
+          <div class="swiper-wrapper">
+            <div class="testimonials-item swiper-slide">
+              <div
+                class="scrolla-element-anim-1 scroll-animate"
+                data-animate="active"
+              >
+                <div class="image">
+                  <img src={rev1.src} alt="John Smith" />
+                </div>
+                <div class="desc">
+                  <div class="title">John Smith</div>
+                  <div class="name">Designer</div>
+                  <div class="text">
+                    There are many variations of passages of Lorem Ipsum
+                    available, but the majority have suffered alteration in some
+                    form, by injected humour, or randomised words which don't
+                    look even slightly believable.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonials-item swiper-slide">
+              <div
+                class="scrolla-element-anim-1 scroll-animate"
+                data-animate="active"
+              >
+                <div class="image">
+                  <img src={rev2.src} alt="John Smith" />
+                </div>
+                <div class="desc">
+                  <div class="title">John Smith</div>
+                  <div class="name">Designer</div>
+                  <div class="text">
+                    There are many variations of passages of Lorem Ipsum
+                    available, but the majority have suffered alteration in some
+                    form, by injected humour, or randomised words which don't
+                    look even slightly believable.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonials-item swiper-slide">
+              <div
+                class="scrolla-element-anim-1 scroll-animate"
+                data-animate="active"
+              >
+                <div class="image">
+                  <img src={rev3.src} alt="John Smith" />
+                </div>
+                <div class="desc">
+                  <div class="title">John Smith</div>
+                  <div class="name">Designer</div>
+                  <div class="text">
+                    There are many variations of passages of Lorem Ipsum
+                    available, but the majority have suffered alteration in some
+                    form, by injected humour, or randomised words which don't
+                    look even slightly believable.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonials-item swiper-slide">
+              <div
+                class="scrolla-element-anim-1 scroll-animate"
+                data-animate="active"
+              >
+                <div class="image">
+                  <img src={rev1.src} alt="John Smith" />
+                </div>
+                <div class="desc">
+                  <div class="title">John Smith</div>
+                  <div class="name">Designer</div>
+                  <div class="text">
+                    There are many variations of passages of Lorem Ipsum
+                    available, but the majority have suffered alteration in some
+                    form, by injected humour, or randomised words which don't
+                    look even slightly believable.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // import Swiper JS
+  import Swiper, { Pagination, Autoplay } from "swiper";
+  // import Swiper styles
+  import "swiper/css";
+  import "swiper/css/pagination";
+  import "swiper/css/autoplay";
+
+  const swiperTestimonials = new Swiper(".js-testimonials", {
+    modules: [Pagination, Autoplay],
+    slidesPerView: 2,
+    spaceBetween: 50,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+      },
+      768: {
+        slidesPerView: 1,
+      },
+      1024: {
+        slidesPerView: 2,
+      },
+      1280: {
+        slidesPerView: 3,
+      },
+    },
+  });
+</script>

@@ -1,0 +1,98 @@
+<div class="cursor"></div>
+
+<script>
+  window.addEventListener("load", () => {
+    let mouseX = window.innerWidth / 2,
+      mouseY = window.innerHeight / 2;
+
+    const cursor = {
+      el: document.querySelector(".cursor"),
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      w: 30,
+      h: 30,
+      update: function () {
+        let l = this.x - this.w / 2;
+        let t = this.y - this.h / 2;
+        this.el.style.transform = `translate3d(${l}px, ${t}px, 0)`;
+      },
+    };
+
+    window.addEventListener("mousemove", function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    const specialElements = document.querySelectorAll(
+      "a, .swiper-pagination, .swiper-buttons, button, .button, .btn"
+    );
+
+    specialElements.forEach(
+      (element) => (
+        element.addEventListener("mouseover", function () {
+          document.querySelector(".cursor").classList.add("cursor-zoom");
+        }),
+        element.addEventListener("mouseout", function () {
+          document.querySelector(".cursor").classList.remove("cursor-zoom");
+        })
+      )
+    );
+
+    setInterval(move, 1000 / 60);
+
+    function move() {
+      cursor.x = lerp(cursor.x, mouseX, 0.1);
+      cursor.y = lerp(cursor.y, mouseY, 0.1);
+      cursor.update();
+    }
+
+    function lerp(start, end, amt) {
+      return (1 - amt) * start + amt * end;
+    }
+  });
+</script>
+
+<style>
+  /* - Cursor */
+
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid transparent;
+    -o-transition: width 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      height 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      background 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      margin 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      opacity 0.7s cubic-bezier(0.3, 0, 0.3, 1);
+    transition: width 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      height 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      background 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      margin 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      opacity 0.7s cubic-bezier(0.3, 0, 0.3, 1);
+    -webkit-transition: width 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      height 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      background 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      margin 0.3s cubic-bezier(0.3, 0, 0.3, 1),
+      opacity 0.7s cubic-bezier(0.3, 0, 0.3, 1);
+    z-index: 999;
+    pointer-events: none;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -khtml-border-radius: 100%;
+  }
+
+  .cursor.cursor-zoom {
+    margin-top: -25px;
+    margin-left: -25px;
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+</style>

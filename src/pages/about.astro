@@ -1,0 +1,27 @@
+---
+import HeadingSection from "../components/HeadingSection.astro";
+import Layout from "../layouts/Layout.astro";
+
+import team from "../assets/about2.jpg";
+import train from "../assets/started-n7.jpg";
+import ParallaxSection from "../components/ParallaxSection.astro";
+import DescriptionSection from "../components/DescriptionSection.astro";
+import ServiceSection from "../components/ServiceSection.astro";
+import ListSection from "../components/ListSection.astro";
+import VideoSection from "../components/VideoSection.astro";
+import TeamSection from "../components/TeamSection.astro";
+import TestimonialSection from "../components/TestimonialSection.astro";
+import ClientsSection from "../components/ClientsSection.astro";
+---
+
+<Layout title="Welcome to About." type="page">
+  <HeadingSection title="About" />
+  <ParallaxSection imageUrl={team.src} />
+  <DescriptionSection />
+  <ServiceSection />
+  <ListSection />
+  <VideoSection imageUrl={train.src} />
+  <TeamSection />
+  <TestimonialSection />
+  <ClientsSection />
+</Layout>

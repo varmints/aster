@@ -1,0 +1,277 @@
+---
+import logo from "../assets/logo.png";
+---
+
+<header class="header">
+  <div class="header__builder">
+    <!-- logo -->
+    <div class="logo-image">
+      <a href="/">
+        <img src={logo.src} alt="logo" />
+      </a>
+    </div>
+
+    <!-- menu button -->
+    <a href="#" class="menu-btn full"><span></span></a>
+
+    <!-- navigation -->
+    <div class="menu-full-overlay">
+      <div class="menu-full-container">
+        <div class="container mx-auto">
+          <div class="row">
+            <div class="w-full">
+              <!-- navigation list -->
+              <div class="menu-full">
+                <ul class="menu-full">
+                  <li class="menu-item menu-item-has-children has-children">
+                    <a
+                      class="splitting-text-anim-2"
+                      data-splitting="chars"
+                      href="//"
+                    >
+                      Home
+                    </a>
+                    <ul class="sub-menu">
+                      <li class="menu-item menu-current-item">
+                        <a
+                          class="splitting-text-anim-1"
+                          data-splitting="chars"
+                          href="/"
+                        >
+                          Parallax Slider
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a
+                          class="splitting-text-anim-1"
+                          data-splitting="chars"
+                          href="/home-grid"
+                        >
+                          Grid Slider
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu-item">
+                    <a
+                      class="splitting-text-anim-2"
+                      data-splitting="chars"
+                      href="/about"
+                    >
+                      About
+                    </a>
+                  </li>
+                  <li class="menu-item menu-item-has-children has-children">
+                    <a
+                      class="splitting-text-anim-2"
+                      data-splitting="chars"
+                      href="//"
+                    >
+                      Works
+                    </a>
+                    <ul class="sub-menu">
+                      <li class="menu-item menu-current-item">
+                        <a
+                          class="splitting-text-anim-1"
+                          data-splitting="chars"
+                          href="/portfolio"
+                        >
+                          Works
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a
+                          class="splitting-text-anim-1"
+                          data-splitting="chars"
+                          href="/gallery"
+                        >
+                          Gallery
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu-item">
+                    <a
+                      class="splitting-text-anim-2"
+                      data-splitting="chars"
+                      href="/blog"
+                    >
+                      Blog
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a
+                      class="splitting-text-anim-2"
+                      data-splitting="chars"
+                      href="/contact"
+                    >
+                      Contact
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- social -->
+      <div class="menu-social-links">
+        <a
+          href="https://www.twitter.com/"
+          target="blank"
+          class="scrolla-element-anim-1"
+          title="Instagram"
+        >
+          Instagram
+        </a>
+        <a
+          href="https://www.twitter.com/"
+          target="blank"
+          class="scrolla-element-anim-1"
+          title="Twitter"
+        >
+          Twitter
+        </a>
+        <a
+          href="https://www.dribbble.com/"
+          target="blank"
+          class="scrolla-element-anim-1"
+          title="Twitter"
+        >
+          Dribbble
+        </a>
+        <a
+          href="https://www.behance.net/"
+          target="blank"
+          class="scrolla-element-anim-1"
+          title="Twitter"
+        >
+          Behance
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const hamburger = document.querySelector(".header .menu-btn.full");
+
+  hamburger.addEventListener("click", function () {
+    if (this.classList.contains("active")) {
+      document
+        .querySelector(".header .menu-btn.full")
+        .classList.remove("active");
+      document
+        .querySelector(".header .menu-btn.full")
+        .classList.add("no-touch");
+      document.querySelector("body").classList.remove("no-scroll");
+      document
+        .querySelector(".menu-full-overlay")
+        .classList.remove("is-open", "has-scroll", "animate-active");
+      setTimeout(function () {
+        document
+          .querySelector(".menu-full-overlay")
+          .classList.remove("visible");
+        document.querySelector(".menu-btn.full").classList.remove("no-touch");
+      }, 1000);
+    } else {
+      this.classList.add("active", "no-touch");
+      let height = window.innerHeight;
+      document.querySelector<HTMLElement>(
+        ".menu-full-overlay"
+      ).style.height = `${height}px`;
+      document.querySelector("body").classList.add("no-scroll");
+      document
+        .querySelector(".menu-full-overlay")
+        .classList.add("is-open", "visible");
+      setTimeout(function () {
+        document
+          .querySelector(".menu-full-overlay")
+          .classList.add("has-scroll", "animate-active");
+        document.querySelector(".menu-btn.full").classList.remove("no-touch");
+      }, 1000);
+    }
+  });
+
+  /**
+		Menu Full Overlay Submenu
+	**/
+  const menuFull = document.querySelector(".menu-full");
+  menuFull.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).closest(".has-children > a")) {
+      event.preventDefault();
+      handler.call(event.target, event);
+    }
+  });
+
+  function handler(event) {
+    if (
+      (event.target as HTMLElement).closest("li").classList.contains("opened")
+    ) {
+      const el = (event.target as HTMLElement).closest("li");
+
+      el.classList.remove("opened");
+      el.classList.add("closed");
+      [...el.querySelectorAll<HTMLElement>(":scope > ul")].forEach((el) => {
+        el.style.maxHeight = `0px`;
+      });
+    } else {
+      const el = (event.target as HTMLElement).closest("ul");
+      const mainEl = [...el.querySelectorAll(":scope > li")];
+      mainEl.forEach((el) => {
+        el.classList.remove("closed", "opened");
+      });
+      mainEl.forEach((el) => {
+        [...el.querySelectorAll<HTMLElement>(":scope > ul")].forEach((el) => {
+          el.style.maxHeight = `0px`;
+        });
+      });
+
+      const el1 = (event.target as HTMLElement).closest("li");
+
+      el1.classList.add("opened");
+
+      var submenu_h = 0;
+
+      [...el1.querySelectorAll(":scope > ul > li")].forEach((el) => {
+        submenu_h += el.getBoundingClientRect().height + 20;
+      });
+
+      [...el1.querySelectorAll<HTMLElement>(":scope > ul")].forEach((el) => {
+        el.style.maxHeight = `${submenu_h + 20}px`;
+      });
+    }
+
+    return false;
+  }
+  // $(".menu-full").on("click", ".has-children > a", function () {
+  //   if ($(this).closest("li").hasClass("opened")) {
+  //     $(this).closest("li").removeClass("opened");
+  //     $(this).closest("li").addClass("closed");
+  //     $(this).closest("li").find("> ul").css("max-height", 0);
+  //   } else {
+  //     $(this)
+  //       .closest("ul")
+  //       .find("> li")
+  //       .removeClass("closed")
+  //       .removeClass("opened");
+  //     $(this).closest("ul").find("> li").find("> ul").css("max-height", 0);
+
+  //     $(this).closest("li").addClass("opened");
+
+  //     var submenu_h = 0;
+  //     $(this)
+  //       .closest("li")
+  //       .find("> ul > li")
+  //       .each(function () {
+  //         submenu_h += $(this).height() + 20;
+  //       });
+  //     $(this)
+  //       .closest("li")
+  //       .find("> ul")
+  //       .css("max-height", submenu_h + 20);
+  //   }
+  //   return false;
+  // });
+</script>
